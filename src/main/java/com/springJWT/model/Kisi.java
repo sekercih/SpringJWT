@@ -43,9 +43,34 @@ private String password;
 
     private Set<KisiRole> roller=new HashSet<>();
 
+    public Set<KisiRole> getRoller() {
+        return roller;
+    }
+
+    public void setRoller(Set<KisiRole> roller) {
+        this.roller = roller;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     public Kisi(@NotBlank @Size(min = 3, max = 30) String username, @NotBlank @Size(max = 120, min = 6) String password, @NotBlank @Email String email) {
         this.username = username;
         this.password = password;
         this.email = email;
+
     }
 }
