@@ -1,7 +1,6 @@
-package com.springJWT.reqrest;
+package com.springJWT.reqres;
 
 
-import com.springJWT.model.KisiRole;
 import lombok.Getter;
 import lombok.Setter;
 

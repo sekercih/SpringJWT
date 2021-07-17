@@ -1,4 +1,4 @@
-package com.springJWT.reqrest;
+package com.springJWT.reqres;
 
 import lombok.Getter;
 import lombok.Setter;
