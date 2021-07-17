@@ -36,7 +36,7 @@ private String password;
     private String email;
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "kisi_roller",joinColumns = @JoinColumn(name = "kisi_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
 

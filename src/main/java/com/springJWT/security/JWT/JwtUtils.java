@@ -1,5 +1,6 @@
 package com.springJWT.security.JWT;
 
+
 import com.springJWT.service.KisiServiceImpl;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -22,7 +23,7 @@ public class JwtUtils {
                 signWith(SignatureAlgorithm.HS512, jwtSecret).
                 compact();
     }
-    public String usernameVePasswordAl(String token) {
+    public String usernameAl(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
     public boolean JwtTokenGecerle(String authToken) {
