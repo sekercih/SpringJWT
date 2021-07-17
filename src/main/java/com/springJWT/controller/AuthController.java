@@ -26,24 +26,28 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+
     @Autowired
     KisiRepository kisiRepository;
+
     @Autowired
     PasswordEncoder passwordEncoder;
+
     @Autowired
     RoleRepository roleRepository;
+
     @Autowired
     AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
     public ResponseEntity<?> girisYap(@RequestBody LoginRequest loginRequest) {
-        //kimlik denetiminin yapılması
-        Authentication authentication=authenticationManager.
-                authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
-                        loginRequest.getPassword()));
 
+        //Kimlik denetiminin yapılmasi
+        Authentication authentication = authenticationManager.
+                authenticate( new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
+        return ResponseEntity.ok("başarılı");
     }
-
 
     @PostMapping("/register")
     public ResponseEntity<?> kayitOl(@RequestBody RegisterRequest registerRequest) {
@@ -59,12 +63,15 @@ public class AuthController {
                     .badRequest().
                             body(new MesajResponse("Hata: email kullaniliyor"));
         }
+
         //Yeni kullanıcıyı kaydet
         Kisi kisi = new Kisi(registerRequest.getUsername(),
                 passwordEncoder.encode(registerRequest.getPassword()),
                 registerRequest.getEmail());
-        Set<String> stringRoller = registerRequest.getRoller();
+
+        Set<String> stringRoller = registerRequest.getRole();
         Set<KisiRole> roller = new HashSet<>();
+
         if (stringRoller == null) {
             KisiRole userRole = roleRepository.findByName(ERoller.ROLE_USER).
                     orElseThrow(() -> new RuntimeException("hata: Veritabaninda Role kayitli değil"));
@@ -88,10 +95,13 @@ public class AuthController {
                         roller.add(userRole);
                 }
             });
+
             kisi.setRoller(roller);
             //Veritabanına yeni kaydı ekle.
             kisiRepository.save(kisi);
+
         }
         return ResponseEntity.ok(new MesajResponse("Kullanıcı başarıyla kaydedildi."));
     }
 }
+
